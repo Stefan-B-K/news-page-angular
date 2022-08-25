@@ -1,0 +1,21 @@
+.category {
+    margin: 10px;
+}
+
+.category-label {
+    margin-right: 10px;
+}
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card-subtitle {
+    font-size: small;
+}
+
+h3 {
+    margin-top: 10px;
+}

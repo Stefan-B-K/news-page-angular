@@ -1,0 +1,40 @@
+<h3>Hacker News</h3>
+
+<ng-container *ngIf=" articleIDs">
+    <div class="header">
+        <div class="category">
+            <label class="category-label">Pick news category:</label>
+            <select [(ngModel)]="selectedCategory" name="category" (change)="onChangeCategory()">
+                <option *ngFor="let category of storyCategories; let i = index" [value]="i">
+                    {{ category | titlecase }}
+                </option>
+            </select>
+        </div>
+        <app-paginator
+            [paginatorSize]=paginatorSize
+            [totalPages]="totalPages"
+            (pageChanged)="setCurrentPage($event)"
+        ></app-paginator>
+    </div>
+
+    <div class="list-group">
+        <ng-container *ngFor="let article of articlesForCurrentPage$ | async">
+            <ng-container *ngIf="!!article.url; else ngElse">
+                <a [href]="article.url"
+                   target="_blank"
+                   class="list-group-item list-group-item-action"
+                >
+                    <h6 class="card-title">{{ article.title }}</h6>
+                    <span class="card-subtitle">{{ article.time | timestampToDate | date }}</span>
+                    <span class="card-subtitle"> {{ domainFromUrl(article.url)}}</span>
+                </a>
+            </ng-container>
+            <ng-template #ngElse>
+                <div class="list-group-item" style="color:lightgray">
+                    <h6 class="card-title">{{ article.title }}</h6>
+                    <span class="card-subtitle">{{ article.time | timestampToDate | date }}</span>
+                </div>
+            </ng-template>
+        </ng-container>
+    </div>
+</ng-container>

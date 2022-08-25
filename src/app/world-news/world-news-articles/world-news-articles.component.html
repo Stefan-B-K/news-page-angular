@@ -1,0 +1,32 @@
+<h3>World News</h3>
+
+<ng-container *ngIf=" articles$ | async as articles">
+    <div class="header">
+        <div class="country">
+            <label class="country-label">Choose Country:</label>
+            <select [(ngModel)]="selectedCountry" name="country" (change)="onChangeCountry()">
+                <option *ngFor="let counrty of countries" [value]="counrty.code">
+                    {{ counrty.country }}
+                </option>
+            </select>
+        </div>
+        <app-paginator
+            [paginatorSize]=paginatorSize
+            [totalPages]="(totalPages$ | async) ?? 0"
+            (pageChanged)="setCurrentPage($event)"
+        ></app-paginator>
+    </div>
+
+    <div class="list-group">
+        <a
+            *ngFor="let article of articles"
+            [href]="article.url"
+            target="_blank"
+            class="list-group-item list-group-item-action"
+        >
+            <h6 class="card-title">{{ article.title | trimTitle }} </h6>
+            <span class="card-subtitle">{{ article.publishedAt | date }}</span>
+            <span class="card-subtitle"> By: {{ article.author }}</span>
+        </a>
+    </div>
+</ng-container>

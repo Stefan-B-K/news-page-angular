@@ -1,0 +1,11 @@
+<nav class="paginator">
+    <ul class="pagination">
+        <li
+            *ngFor="let page of pageRange"
+            [ngClass]="page === currentPage ? 'active' : '' "
+            (click)="setCurrenPage(page)"
+            class="page-item">
+            <a class="page-link"> {{ page }} </a>
+        </li>
+    </ul>
+</nav>
